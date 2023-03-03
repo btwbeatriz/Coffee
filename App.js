@@ -7,8 +7,8 @@ const Coffee = props => {
 
         return(
             <View>
-            <Text>Coffee<Text>
-            <Text>Escolha o café<Text>
+            <Text>Coffee</Text>
+            <Text>Escolha o café</Text>
                 <Image
                     source={{uri: '',}}
                     style={{width: 100, height: 100}}
