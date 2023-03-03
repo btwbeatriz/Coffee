@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { WebView } from 'react-native-webview';
-import {TextInput, View, Text, Image, Button} from 'react-native'
+import { View, Text, Image, Button} from 'react-native'
 
 const Coffee = props => {
     const [isPrepared, setIsPrepared] = useState(true);
@@ -31,13 +31,6 @@ const Coffee = props => {
 export default function App(){
 return(
     <View>
-        <TextInput
-            style={{
-            height: 40,
-            borderColor: 'gray',
-            borderWidth: 1,
-            }}
-        />
         <Coffe />
         <Coffe name='Café Expresso'/>
         <Coffe name='Capuccinno'/>
