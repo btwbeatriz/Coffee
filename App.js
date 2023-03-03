@@ -1,20 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { WebView } from 'react-native-webview';
+import {TextInput, View, Text, Image, Button} from 'react-native'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+const Coffee = props => {
+    const [isPrepared, setIsPrepared] = useState(true);
+
+        return(
+            <View>
+            <Text>Coffee<Text>
+            <Text>Escolha o café<Text>
+                <Image
+                    source={{uri: '',}}
+                    style={{width: 100, height: 100}}
+                />
+            <Text>Café Expresso{props}, {isPrepared? 'Preparando':'Retire'}!
+            </Text>
+            <Button
+                onPress={() => {
+                  setIsPrepared(false),
+                  setTimeout(()=> {()=>{5},time});
+                  }}
+                  disabled={!isPrepared}
+                  title={isHungry ? 'Retire o produto' : 'Obrigado!'}
+            />
+        </View>
+        );
+       };
+
+
+export default function App(){
+return(
+    <View>
+        <TextInput
+            style={{
+            height: 40,
+            borderColor: 'gray',
+            borderWidth: 1,
+            }}
+        />
+        <Cat />
+        <Cat name='Café Expresso'/>
+        <Cat name='Capuccinno'/>
+        <Cat name='Café coado'/>
     </View>
-  );
+   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
