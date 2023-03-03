@@ -21,6 +21,10 @@ const Coffee = props => {
         </View>
         )
                 }
+    const Cappuccino = props => {
+         const [isPrepared, setIsPrepared] = useState(true);
+        
+                        return(
     <View>
     <Text>Escolha o cappucciono</Text>
         <Image
@@ -33,7 +37,16 @@ const Coffee = props => {
         disabled={!isPrepared}
         title={isPrepared ? 'Retire o produto' : 'Obrigado!'}
     />
+    
+    
     </View>
+                        )
+    }
+    const Cafe Coado = props => {
+
+        const [isPrepared, setIsPrepared] = useState(true);
+    
+            return(
     
     
     <View>
@@ -49,6 +62,8 @@ const Coffee = props => {
         title={isPrepared ? 'Retire o produto' : 'Obrigado!'}
     />
     </View>
+            )
+    }
 
 
 export default function App(){
