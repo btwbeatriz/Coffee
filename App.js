@@ -13,7 +13,7 @@ const Coffee = props => {
                     source={{uri: '',}}
                     style={{width: 100, height: 100}}
                 />
-            <Text>Café Expresso{props}, {isPrepared? 'Preparando':'Retire'}!
+            <Text>Café Expresso{props.name}, {isPrepared? 'Preparando':'Retire'}!
             </Text>
             <Button
                 onPress={() => {
@@ -21,7 +21,7 @@ const Coffee = props => {
                   setTimeout(()=> {()=>{5},time});
                   }}
                   disabled={!isPrepared}
-                  title={isHungry ? 'Retire o produto' : 'Obrigado!'}
+                  title={isPrepared ? 'Retire o produto' : 'Obrigado!'}
             />
         </View>
         );
@@ -38,11 +38,10 @@ return(
             borderWidth: 1,
             }}
         />
-        <Cat />
-        <Cat name='Café Expresso'/>
-        <Cat name='Capuccinno'/>
-        <Cat name='Café coado'/>
+        <Coffe />
+        <Coffe name='Café Expresso'/>
+        <Coffe name='Capuccinno'/>
+        <Coffe name='Café coado'/>
     </View>
    );
 }
-
