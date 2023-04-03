@@ -1,78 +1,114 @@
-import React, {useState} from 'react';
-import { View, Text, Image, Button} from 'react-native'
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native';
+import { AdapterProduct } from './src/Card';
+import { AdapterModal } from './src/Modal';
 
-const Coffee = props => {
-    const [isPrepared, setIsPrepared] = useState(true);
-
-        return(
-            <View>
-            <Text>Coffee</Text>
-            <Text>Escolha o café</Text>
-                <Image
-                    source={{uri: 'https://media.istockphoto.com/id/1286808993/pt/foto/black-coffee-isolated-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c=R4rvKR2vtT7eJuIGmLF1w2pyXLZrH078VSHAXzhJgHE=',}}
-                    style={{width: 100, height: 100}}
-                />
-            <Text>Café Expresso{props.name}, {isPrepared? 'Preparando':'Retire'}!
-            </Text>
-            <Button
-                  disabled={!isPrepared}
-                  title={isPrepared ? 'Retire o produto' : 'Obrigado!'}
-            />
-        </View>
-        )
-                }
-    const Cappuccino = props => {
-         const [isPrepared, setIsPrepared] = useState(true);
-        
-                        return(
-    <View>
-    <Text>Escolha o cappucciono</Text>
-        <Image
-            source={{uri: 'https://media.istockphoto.com/id/505168330/pt/foto/copo-de-caf%C3%A9-latte-cafecom-gr%C3%A3os-de-caf%C3%A9-e-paus-de-canela.jpg?s=1024x1024&w=is&k=20&c=9gssV4ZKB1JPU7WezUGqYJLVXH0g00i3aXJX41uRa7k=',}}
-            style={{width: 100, height: 100}}
-        />
-    <Text>Cappuccino {props.name}, {isPrepared? 'Preparando':'Retire'}!
-    </Text>
-    <Button
-        disabled={!isPrepared}
-        title={isPrepared ? 'Retire o produto' : 'Obrigado!'}
-    />
-    
-    
+const Recycled = props => {
+  const data = [
+    {
+      name: 'Café com leite',
+      img: require('./assets/cappuccinoItaliano.png'),
+      size: [{ title: 'P', time: 3000 }, { title: 'M', time: 5000 }, { title: 'G', time: 10000 }]
+    },
+    {
+      name: 'Café Americano',
+      img: require('./assets/coffee.png'),
+      size: [{ title: 'P', time: 3000 }, { title: 'G', time: 10000 }]
+    },
+    {
+      name: 'Mocha',
+      img: require('./assets/mocha.png'),
+      size: [{ title: 'M', time: 5000 }]
+    },]
+  return (
+    <View style={styles.products}>
+      {data.map(
+        (item) =>
+          <AdapterProduct
+            key={item.name}
+            img={item.img}
+            name={item.name}
+            size={item.size}
+            getState={props.getState}
+            call={props.call}
+            reset={props.reset}
+          />
+      )
+      }
     </View>
-                        )
-    }
-    const Cafe Coado = props => {
-
-        const [isPrepared, setIsPrepared] = useState(true);
-    
-            return(
-    
-    
-    <View>
-    <Text>Escolha o cafe Coado</Text>
-        <Image
-            source={{uri: '',}}
-            style={{width: 100, height: 100}}
-        />
-    <Text>Cafe Coado {props.name}, {isPrepared? 'Preparando':'Retire'}!
-    </Text>
-    <Button
-        disabled={!isPrepared}
-        title={isPrepared ? 'Retire o produto' : 'Obrigado!'}
-    />
-    </View>
-            )
-    }
-
-
-export default function App(){
-return(
-    <View>
-        <Coffe />
-        <Coffe name='Café Expresso'/>
-        <Coffe name='Capuccinno'/>
-        <Coffe name='Café coado'/>
-    </View>
-   );
+  );
 }
+
+
+
+const App = () => {
+  const [getState, setState] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [getStatus, setStatus] = useState('Escolha um tamanho');
+
+  const call = (state, time) => {
+    setStatus('Preparando o pedido')
+    setState(state)
+    setTimeout(
+      () => {
+        setStatus('Finalizar pedido')
+        setModalVisible(true)
+        setTimeout(
+          () => {
+            reset(true)
+          }, 5000
+        )
+      }, time
+    )
+  }
+
+  const reset = state => {
+    setStatus('Escolha um tamanho')
+    setState(state)
+    setModalVisible(false)
+  }
+  return (
+    <View style={styles.container}>
+      <AdapterModal modalVisible={modalVisible} reset={reset} />  
+      <View style={styles.title}>
+        <Text style={styles.textTitle}>Coffee</Text> 
+        <Text style={styles.textState}>{getStatus}</Text> 
+      </View>
+      <ScrollView  >
+        <Recycled getState={getState} call={call}  />
+      </ScrollView>
+    </View>
+  );
+}
+
+export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    marginTop: 10,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  products: {
+    marginTop: 20,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  }, 
+  textState: {
+    fontSize: 13,
+    color: 'navy',
+  },
+  textTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color:'navy',
+  },
+});
